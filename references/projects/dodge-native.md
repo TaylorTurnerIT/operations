@@ -8,7 +8,8 @@ Goal: train a teacher from structured game data, then train a vision student to 
 
 - **Accountable owner:** thread `518b8c2d-01fb-4f39-acc3-f2d9f1f35c4e` ("Transformer Based Dodge Bot"). It owns runs, packets, leases and results. It runs on Terra Medium. The owner reads Taylor's wording itself, so quote Taylor exactly when you pass a decision down.
 - **Idea threads (finished, idle):** wall rays, heuristic inputs, fresh-seed scaling, death telemetry, frame count progression. They hold earlier work and evidence. Read them before you claim something was never tried.
-- **Child threads:** the owner or the lead starts them for bounded tasks, such as the difficulty survey and the ray ablation.
+- **New work streams are team threads, not lead subagents (Taylor, 2026-11-03).** Hierarchy: Taylor, lead, team threads, their subagents. When the lead branches off, it starts a team thread (Terra Medium) with a self-contained brief. That thread runs its own Luna implementers and Luna plus Haiku reviewers. Taylor asked for this, so starting a new top-level thread is allowed for a requested work stream.
+- **Child threads:** team threads start them for bounded tasks, such as the ray ablation. Two early lead-started subagent threads (the difficulty survey and multi-slot admission) stay as they are.
 - **Find every thread.** List with `settled:false`, `includeSubagents:false`, limit 100. A list of the 30 newest threads missed the rays thread. Check the whole list at the first pass of a session.
 
 ## Machines and limits
@@ -16,7 +17,7 @@ Goal: train a teacher from structured game data, then train a vision student to 
 - **M4** (`Taylors-MacBook-Pro-2`) runs the T3 server. Prefer it for evaluations and analysis.
 - **M1** (`ssh m1-macbook`) runs training. It is also Taylor's client and Mudcrab's review machine, so check actual occupancy first. Protected consumers: dictation (Phonon, Voxtype) and any interactive session.
 - **M1 admission today:** one lease slot in `~/.local/state/dodge-native/accelerator/state.json`, a 6 GiB RSS and MPS limit per run, and no elapsed-time cutoff. M1 Pro: 32 GiB RAM, 10 cores. M4 Pro: 48 GiB, 14 cores. A run peaked near 3 GB RSS and 2.4 GB MPS.
-- **Taylor allows many parallel runs (2026-11-03).** The single slot is a design choice, not hardware. Taylor accepts that each run takes longer, because Taylor acts on results in bursts. The owner replaces the single slot with a per-machine RAM and core budget, with a reserve for Taylor's session and dictation. Until that exists, the single slot stands. The earlier "two game-eval processes" cap is withdrawn.
+- **Taylor allows many parallel runs (2026-11-03).** The single slot is a design choice, not hardware. Taylor accepts that each run takes longer, because Taylor acts on results in bursts. Budget and allocation belong to the lead, not the owner thread. Initial budget, tunable after measuring concurrent runs: M1 reserves 10 GiB for Taylor's session, dictation and Mudcrab reviews, so it admits 3 runs at the 6 GiB per-run cap. M4 reserves 16 GiB, so it admits 5 runs. Cores are not pinned, and runs use background priority. One run alone gets the whole machine, and the share shrinks as runs join. A separate Terra thread builds multi-slot admission. Until it lands, the single slot stands. The earlier "two game-eval processes" cap is withdrawn.
 - Cloud computers and paid spend need Taylor's approval. No later message removed this limit.
 
 ## Taylor's holds and authority
@@ -32,6 +33,7 @@ Goal: train a teacher from structured game data, then train a vision student to 
 - Review: Luna plus Haiku 5.5. Luna alone counts if Haiku is unavailable. Do not review unchanged source again.
 - Rotate the owner thread at a milestone. At about 17.9k items it pays for its history on every request. Never rotate it while a run is live.
 - No CI polling loops. Put receipts, lease and `lsof` checks and review dispatch in scripts.
+- **Keep the lead thread clean (Taylor, 2026-11-03).** The lead does not start implementation or review threads, and does not relay reviewer findings. A team thread runs the whole loop (implement, Luna and Haiku review, fix, delta review) and reports once with the final commit. The lead reports outcomes, decisions and blockers to Taylor.
 
 ## Runs: lessons from DODGE-072 to 075
 

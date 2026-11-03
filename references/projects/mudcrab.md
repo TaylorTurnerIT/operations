@@ -59,6 +59,8 @@ Taylor is a core developer. On 2026-11-01, Taylor granted this override for agen
 - `proposal` issues with no owner or PR get `help wanted` and keep `proposal`. Taylor approved this on 2026-11-03. Do not comment on them.
 - GitHub has no upload API for comment images. To show GIFs in a PR comment, push them to a throwaway branch such as `media/<topic>-<date>` through the contents API, embed the raw URLs, and say in the comment that the branch is not for merge. Say what the media shows and what it does not show, for example a local prototype that is not the PR's code.
 - A watched PR group: use `watch_pull_request` on every Taylor-owned PR that waits on maintainers. Draft and stacked PRs wait until they are ready.
+- Implementation delegates started by an `auto` lead cannot write Git locks in their worktree or the shared storage lock (`Operation not permitted` on the index lock and `registry.lock`). They can read, reason and write handoff files, so use them for review, audit and analysis only. Real implementation, builds and pushes need a `full-access` thread, which the lead cannot grant. Ask Taylor for one, or reuse an existing full-access owner. Learned on 2026-11-03 with #485, #486.
+- CodeRabbit's free quota is about two reviews an hour. Mark PRs ready one at a time, spaced out. If it says "Review limit reached", wait for the reset, then post `@coderabbitai review` (AI-labelled) if it does not resume.
 - Owner threads that run `full-access` reject sends from an `auto` lead, and the lead cannot change their model. Owners write status files and notice files in `handoffs/`. Taylor changes those threads in T3.
 
 ## Review panel

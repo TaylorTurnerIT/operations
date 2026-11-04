@@ -153,7 +153,7 @@ Coordinate only when a resource is actually contested:
 3. Tell the contenders the order. The owner that finishes tells the next owner. Let running work finish unless interruption is necessary and authorized.
 4. A job should not hold one resource while it waits for another.
 
-A failed launch can leave a reservation behind: a ledger grant marked running, with no child and no held lock. Before you clear one, verify that no process and no lease belongs to it, and read its release receipt. If the shared ledger is protected, get the user's approval for the release. Then record the release, with the reason, in the ledger. Stop a launch you started yourself through the host's task-stop, and then release its grant the same way.
+A failed launch can leave a reservation behind: a ledger grant marked running, with no child and no held lock. Before you clear one, verify that no process and no lease belongs to it, and read its release receipt. If the shared ledger is protected, get the user's approval for the release. Then record the release, with the reason, in the ledger. Check every place the run registered itself, not only the grant: a missed owner reservation blocked the next team's native run on 2026-11-04. Stop a launch you started yourself through the host's task-stop, and then release its grant the same way.
 
 Owners do not bypass wrappers or limits, reduce safety margins, clear another team's lease, or terminate protected work. Elapsed time alone does not authorize lock clearing or a replacement attempt. Free disk space does not override a managed-cache budget. Reuse compatible artifacts and passing results. If no safe start is possible, record the deficit and the smallest external action needed.
 

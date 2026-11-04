@@ -41,12 +41,14 @@ Goal: train a teacher from structured game data, then train a vision student to 
 - **A failed setup is not a result.** Record zero training counts. Start a separate successor with the fix. Keep the failed evidence.
 - **Custody.** A launched run needs a watcher: an attached execution owner, or a script that watches the M1 processes and receipts. In 075 the custody thread failed while the run lived on, and the coordinator was orphaned. Do not trust a thread status for a live run. Check the M1 processes, the log timestamps and the lease directly (read-only `ssh m1-macbook`).
 - **Long runs.** Ask for a direct check when a run is long. Report the progress fraction, such as "update 48 of 72". Do not call a run two-thirds done "early".
+- **Two layers of stopping (Taylor, 2026-11-03).** A script applies the stop rule. An agent also looks at a one-line summary per live run on a cheap, scheduled pass: age, progress, latest evaluation against the best. It stops a run that is plainly going nowhere, even if the rule has not fired. In 075 nobody looked until Taylor asked. Wake-on-completion alone does not cover this.
 - **Stopping.** Stop through the run's own supervisor, not a blind kill. Keep checkpoints, logs and receipts. If no normal terminal receipt exists, the audit cannot accept the stop. Release the lease with a "cancelled by Taylor" receipt. Confirm that no owned process remains. Do not call it success.
 - **Stale reservations.** A failed or stopped launch can leave a lease held. Verify that no process belongs to it and read its receipt. Then release it with the reason recorded.
 
 ## Results and acceptance
 
-- Judge runs by measured play: mean score, Q1 and early deaths, against the retained control12 (Mean 4533, Q1 1836, early deaths 7 in 512 games). EV, KL and value are diagnostics only.
+- **Env bug found 2026-11-04.** The port omitted the cartridge's divide-by-16 before squaring kamikaze distance components. Release builds wrapped silently and could select the wrong speed branch, in all difficulty modes. All earlier training and scores used that game. Treat earlier reference numbers as pre-fix until they are re-scored, and do not compare them directly with post-fix runs.
+- Judge runs by measured play: mean score, Q1 and early deaths, against the retained control12 (pre-fix: Mean 4533, Q1 1836, early deaths 7 in 512 games). EV, KL and value are diagnostics only.
 - Always score all three difficulty modes. Mode 2 appears to be the normal setting (speed 1.0, spawn factor 1.0). Mode 3 is hardest. Say which seeds and how many games each result used, and whether they were consumed.
 - A full-state heuristic is the reference. It beats checkpoint 420 in all three modes. It reads enemy personality and pattern history that the model does not get.
 - Do not ask Taylor to review what metrics already show. Taylor's human decisions here are run designs, spending and the hold.

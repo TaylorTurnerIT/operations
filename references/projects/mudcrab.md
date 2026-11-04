@@ -68,6 +68,9 @@ Taylor is a core developer. On 2026-11-01, Taylor granted this override for agen
 
 - Benchmarks must not interrupt Taylor, who works on this Mac. Taylor on 2026-11-04: "make these benchmarks run headlessly so they stop interrupting me." Run them with the engine's `hidden_window` option, not `--headless`, which doesn't present and paces at about 60 Hz, so it can't measure GPU work. Open GUI tools with `open -g`, and never steal focus. If a step truly needs a visible or frontmost window, stop that step and ask the lead to arrange a time with Taylor.
 
+- Metal measurement notes from 2026-11-04. Hidden windows acquire no primary drawable, so they don't measure presentation. A `CGVirtualDisplay` monitor acquired drawables but reported zero presentation timestamps, so it doesn't either. Use an offscreen image target to rank GPU and CPU work, and a visible run at a time Taylor picks for presented numbers. Metal System Trace needs runs of about 5 seconds, because longer ones can run out of memory and each leaves tens of GiB in Instruments' temp folder. Keep compiles from overlapping timing runs.
+- A long-running owner often ends its turn at the first obstacle. Brief it to stop only for a refused escalation or a live conflicting resource holder, and to split any independent bug it finds into its own PR.
+
 ## Review panel
 
 On 2026-11-02, Taylor said: "Luna + Haiku is our review roster." The roster is GPT-6 Luna (`codex/gpt-6-luna`) and Claude Haiku 5.5 (`claudeAgent/claude-haiku-5-5`). Sonnet is not used for review unless Taylor changes this after seeing usage patterns. The older six-model roster is retired.

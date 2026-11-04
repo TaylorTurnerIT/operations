@@ -54,9 +54,9 @@ Goal: train a teacher from structured game data, then train a vision student to 
 - Do not ask Taylor to review what metrics already show. Taylor's human decisions here are run designs, spending and the hold.
 - Human testing starts with the vision student. Until then, nothing is "ready for human testing".
 
-## Current direction (2026-11-03)
+## Current direction (2026-11-04)
 
-Richer inputs are the leading lever. Candidate design: richer inputs plus random difficulty per game, skewed toward hard, always scored on all modes. The owner prepares one design for Taylor's approval. Nothing launches until Taylor lifts the hold.
+Taylor chose a lookahead planner as the teacher: branching search on the real game code, with sampled futures and a small value network at the leaves. A vision student then learns from it. A known-seed search is a ceiling test only. The value network's supervised training and the vision student's training are approved. Taylor on the student runs (2026-11-04): "When this is ready, just go ahead and go. And also we can use the M1." While Taylor is away, the planner thread keeps iterating on the heuristic, one measured change at a time ("If everything is done before I wake, continue to iterate upon the heuristic"). The PPO hold stands, and the earlier PPO candidate (richer inputs plus a difficulty mix skewed to hard) is parked. Always score all three modes.
 
 ## Writing
 

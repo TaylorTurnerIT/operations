@@ -63,6 +63,9 @@ Taylor is a core developer. On 2026-11-01, Taylor granted this override for agen
 - CodeRabbit's free quota is about two reviews an hour. Mark PRs ready one at a time, spaced out. If it says "Review limit reached", wait for the reset, then post `@coderabbitai review` (AI-labelled) if it does not resume.
 - `t3_thread_configure` changes model settings only, and permission modes stay. Only Taylor can change a thread's mode, in T3. Owners also write status and notice files in `handoffs/`.
 
+- GUI tools are not a Taylor step. Taylor on 2026-11-04: "You can use computer use. There's nothing on this machine that you can't do... even if you can't I know Codex can." Route GUI work such as Xcode's Metal debugger to a Codex owner. Write the window notice first. The limits on merges, comments to people, upstream posts and spending stay.
+- Performance fixes need measured cost attribution, not guesses: which track, how many ms, which scene, which tool. Follow `docs/contributing/native-profiling.md`. Bevy's GPU pass timings are not valid on macOS. On this M4, use `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` for `xctrace`.
+
 ## Review panel
 
 On 2026-11-02, Taylor said: "Luna + Haiku is our review roster." The roster is GPT-6 Luna (`codex/gpt-6-luna`) and Claude Haiku 5.5 (`claudeAgent/claude-haiku-5-5`). Sonnet is not used for review unless Taylor changes this after seeing usage patterns. The older six-model roster is retired.

@@ -66,6 +66,8 @@ Taylor is a core developer. On 2026-11-01, Taylor granted this override for agen
 - GUI tools are not a Taylor step. Taylor on 2026-11-04: "You can use computer use. There's nothing on this machine that you can't do... even if you can't I know Codex can." Route GUI work such as Xcode's Metal debugger to a Codex owner. Write the window notice first. The limits on merges, comments to people, upstream posts and spending stay.
 - Performance fixes need measured cost attribution, not guesses: which track, how many ms, which scene, which tool. Follow `docs/contributing/native-profiling.md`. Bevy's GPU pass timings are not valid on macOS. On this M4, use `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` for `xctrace`.
 
+- Benchmarks must not interrupt Taylor, who works on this Mac. Taylor on 2026-11-04: "make these benchmarks run headlessly so they stop interrupting me." Run them with the engine's `hidden_window` option, not `--headless`, which doesn't present and paces at about 60 Hz, so it can't measure GPU work. Open GUI tools with `open -g`, and never steal focus. If a step truly needs a visible or frontmost window, stop that step and ask the lead to arrange a time with Taylor.
+
 ## Review panel
 
 On 2026-11-02, Taylor said: "Luna + Haiku is our review roster." The roster is GPT-6 Luna (`codex/gpt-6-luna`) and Claude Haiku 5.5 (`claudeAgent/claude-haiku-5-5`). Sonnet is not used for review unless Taylor changes this after seeing usage patterns. The older six-model roster is retired.

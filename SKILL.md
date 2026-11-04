@@ -136,7 +136,7 @@ Prepare a human-testing package before you send the request. Include:
 - Feedback instructions, including where screenshots, logs, or failure reports go.
 - Prerequisites and known blockers checked, with safe rollback or cleanup when relevant.
 
-The package must be runnable. A source patch, or a binary with a known startup failure, is not a human-testing handoff. Confirm readiness with safe authorized checks, and state any remaining launch uncertainty. Do not launch or interrupt an interactive session without existing authorization. Batch compatible checks into one user session when they share a validated build and environment. Never assume that separate feature patches or packs compose. Keep the human test queue separate from the automated-review and blocked queues. Deduplicate requests. Deliver packages through the current conversation or another explicitly authorized channel.
+The package must be runnable. A source patch, or a binary with a known startup failure, is not a human-testing handoff. Confirm readiness with safe authorized checks, and state any remaining launch uncertainty. Do not launch or interrupt an interactive session without existing authorization. When the user does not need to do or see anything, nothing appears on their screen: every agent runs hidden or headless, with no change of focus. Put this in every implementation brief. Batch compatible checks into one user session when they share a validated build and environment. Never assume that separate feature patches or packs compose. Keep the human test queue separate from the automated-review and blocked queues. Deduplicate requests. Deliver packages through the current conversation or another explicitly authorized channel.
 
 ## Manage scarce resources across the department
 

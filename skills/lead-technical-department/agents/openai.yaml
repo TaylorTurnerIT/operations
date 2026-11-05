@@ -1,0 +1,4 @@
+interface:
+  display_name: "Technical Department Lead"
+  short_description: "Lead existing teams and coordinate scarce resources"
+  default_prompt: "Use $lead-technical-department to keep my existing technical teams progressing, coordinate shared resources, finish bot review, and send me ready human tests."

@@ -46,4 +46,4 @@ Review after 10 memos or 2 weeks, whichever comes first:
 - LLM turns spent on supervision passes, compared with before.
 - Fields and rules that nobody used. Remove them.
 
-If the pilot works, move these rules into the `lead-technical-department` skill, because leads already load it.
+If the pilot works, move these rules into the [`lead-technical-department` skill](skills/lead-technical-department/SKILL.md), because leads already load it.

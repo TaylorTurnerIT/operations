@@ -7,3 +7,6 @@ How Taylor's departments work together, and the threads that improve that system
 - [Department mail, v0](department-mail-v0.md): the pilot rules for cross-department requests.
 - [Directory](directory.md): each department, its lead thread, and what to ask it for.
 - [Proposals](proposals.md): improvements that anyone can propose.
+- [lead-technical-department](skills/lead-technical-department/SKILL.md): the skill that department leads load.
+
+Keep this checkout on `main`. Every lead loads the skill from it through a symlink, so a branch here changes the skill for all of them. Do other work in a worktree.

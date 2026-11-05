@@ -4,7 +4,7 @@ Anyone can add a proposal. Newest goes first. Each one needs an incident, the sm
 
 ## Filter user messages by `createdBy`
 
-- **Incident:** `references/t3-code.md:9` in `lead-technical-department` tells a lead to find every user message. Agent-sent messages also have `type: user_message`. Position 0 of the `hpc-remote` lead thread is an example, with `createdBy: agent` and `senderThreadId` set.
+- **Incident:** `skills/lead-technical-department/references/t3-code.md:9` tells a lead to find every user message. Agent-sent messages also have `type: user_message`. Position 0 of the `hpc-remote` lead thread is an example, with `createdBy: agent` and `senderThreadId` set.
 - **Change:** tell leads to read `createdBy: user` as Taylor's messages.
 - **Check:** a lead adopting a team lists only Taylor's messages as instructions from Taylor.
 - **Status:** open.

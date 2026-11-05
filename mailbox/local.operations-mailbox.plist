@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>local.operations-mailbox</string>
+  <key>ProgramArguments</key><array>
+    <string>/usr/bin/python3</string><string>-I</string>
+    <string>/Users/taylor/Projects/operations/mailbox/mail.py</string>
+    <string>flush</string>
+  </array>
+  <key>StartInterval</key><integer>300</integer>
+  <key>StandardErrorPath</key><string>/Users/taylor/.local/share/operations-mailbox/flush.err.log</string>
+  <key>StandardOutPath</key><string>/Users/taylor/.local/share/operations-mailbox/flush.out.log</string>
+  <key>ProcessType</key><string>Background</string>
+  <key>LowPriorityIO</key><true/>
+</dict></plist>

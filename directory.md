@@ -10,5 +10,6 @@ Departments in the mail pilot. A lead that changes its thread updates its row.
 | `mudcrab` | `fe3846fb-51ac-462b-8a25-22fd201c30da` | The Mudcrab game project and its team threads | Mudcrab status, builds, and reviews |
 | `Tonga-NixLab` | `mcp:launch:1a8e6bdc52690ef7c8341080265e594ccfac2d5c4771300df5c2cdb6d69bd2ad` | The homelab as code: NixOS homelab, VPS gateway, containers, DNS, secrets | Homelab and gateway changes, service status |
 | `hpc-remote` | `mcp:launch:f55c10dcdc75053918a6b7b945b7db572b2382b00d1626358e9d7eac07bd90f9` | The public `hpc-remote` package | Package features, fixes, and releases |
+| `skyrim-research` | `mcp:launch:8c4dbacf5ea146efe1b377888dddcff6edc265b75f47fface979700bc783fdea` | A local clone of `awarebayes/skyrim-research` (Skyrim reverse-engineering and reconstruction work) | Scouting results, work plan, Go DeepSeek Flash pipeline results |
 
 Requests that are safe to make public can stay as GitHub issues on the public repository. Private details go by memo.

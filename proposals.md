@@ -2,6 +2,31 @@
 
 Anyone can add a proposal. Newest goes first. Each one needs an incident, the smallest change, and a way to know that it worked.
 
+## Rebalance usage for the new plans (2026-11-13)
+
+- **Incident:** Taylor changed the plans: ChatGPT $100 → $20 (Plus), Claude $20 → $100 (Max 5x), and added OpenCode Go $10. The usage sampler shows the Codex effect. At 2026-11-13T01:31Z the plan changed from `prolite` to `plus`, and the weekly window went to 100% used. It resets 2026-11-16T01:07Z. Until then Codex runs only on credits: 2,274.99 left at 2026-11-13T04:59Z. A new 5-hour Codex window now exists, and it is at 0%.
+- **Facts (measured):** the old pace was 3,273 credits in 58.4 hours (about 56 per hour, about 1,345 per day; from `model-tiers.md`). At that pace the credits last about 41 hours. The weekly reset is 68 hours away. To reach it, Codex must average at most 33 credits per hour, which is about 60% of the old pace. Claude baseline, from local session logs: 1 to 4 million fresh tokens per day (mostly Sonnet 5.5), and the busiest 5-hour block was 6.5 million (2026-11-05). OpenCode Go in T3: only `deepseek-v4.1-flash-free` is listed, so the Go models are not wired yet. The Muse provider is disabled.
+- **Facts (from the vendors' pages, unverified for this account):** OpenCode Go limits are $12 per 5 hours, $30 per week, $60 per month, in dollar terms ([docs](https://opencode.ai/docs/go/)). Claude Max 5x gives 5 times the Pro limit per 5-hour session, plus a weekly limit that Anthropic does not publish.
+- **Estimate (assumes Plus is one fifth of the old plan; unverified):** the old weekly allowance was about 8,600 credits (about 11.6 points per 1,000 credits, one short interval, ±20%). One fifth is about 1,700 credits per week, or about 10 credits per hour. Codex use would then fall by about 80%. The sampler now records the weekly window, so the first full week after 2026-11-16 will replace this guess.
+- **Change (proposed; Taylor decides each item):**
+  1. **Until 2026-11-16T01:07Z:** keep Codex to Luna and short tasks. No new Sol or Terra owner threads. Ask the leads whose owners run on Terra or Sol to move them at a milestone.
+  2. **New split of work:**
+
+     | Pool | Plan | Role |
+     | --- | --- | --- |
+     | Claude Max 5x | $100, 5-hour window plus weekly | Leads and owners (Sonnet 5.5), spot checks, independent review (Haiku 5.5), hard decisions (Opus 5.5) |
+     | OpenCode Go | $10, dollar caps | Volume work: implementation, long investigations, script-driven runs (DeepSeek first; Muse Spark if Taylor enables it) |
+     | Codex Plus | $20, 5-hour window plus weekly, credits | Reserve. Luna for bulk until Go is wired. Terra and Sol only when Claude cannot do it. |
+
+  3. **Escalation ladder, replacing Luna → Terra → Sol:** cheap worker (DeepSeek or Luna) attempts → one retry with the failure text → Sonnet 5.5 takes over → Opus 5.5 decides. This reverses the rule "implementation never Claude". That rule existed because Claude was $20. It needs a change to the lead skill and `model-tiers.md`, so it waits for Taylor.
+  4. **5-hour windows:** cap how many Claude agents run at once, so one burst does not use a window in an hour. A schedule that wakes an agent opens a window, so stagger unattended jobs. When a window ends, an agent stops mid-work. Leads already treat that as a recoverable interruption.
+  5. **Measure Claude:** there is no Claude sampler. Option A: Taylor reports `/usage` numbers now and then. Option B: a non-LLM job that reads Claude's usage endpoint. Option B needs the local Claude credential, so it needs Taylor's explicit yes.
+  6. **Pause `Daily Codex tier-mix check`** until the new plan is set. It reads request logs that ended 2026-11-03, and it assumes the old plan's economics. It would spend credits on stale data.
+- **Check:** Codex credits are above zero at 2026-11-16T01:07Z. The sampler's weekly window gives Plus a measured credits-per-week. The count of 5-hour limit hits on Claude is zero or low for a week. Throughput does not fall: tasks that Luna or DeepSeek fail do not queue up.
+- **Unknowns:** whether the credits cost money (Taylor knows), the real Plus weekly size, the Claude weekly limit, whether DeepSeek on Go matches Luna on our code (needs a trial on a bounded task), and whether Go and Muse can be connected to T3.
+- **Done already:** the usage sampler (`~/.local/share/codex-usage-sampler/sample_usage.py`) now also records the weekly window. It is not in this repo.
+- **Status:** open. Waiting for Taylor on items 1 to 6.
+
 ## Mailbox: batch department mail outside the agents
 
 - **Incident:** every `t3_thread_send` starts an LLM turn on the receiver. The usage thread (`0d37f2c1`, position 69) measured 55 agent-originated messages to the Mudcrab lead in 24 hours. Receipts and "call home" timers (mail rule 3) also depend on an agent staying alive. Taylor's idea, 2026-11-05: a mailbox that holds small messages and sends them only when there are enough of them, or when one is urgent.

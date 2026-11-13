@@ -63,3 +63,17 @@ T3 schedules have no end-time field. An `interval` task keeps firing when the pr
 When supervision ends, disable the owned task with `schedule_task` and `enabled:false`. This pauses the task. Verify the returned disabled state and next-run value. No replacement schedule or thread is needed. Do not use sleeping loops for durable supervision.
 
 This workflow does not replace PR-specific host rules. Use required PR links and watches when authorized PR work requires them. Follow completion-wakeup instructions, and remove owned watches at final handback. Scheduled thread supervision is not a workaround for a prohibition on polling delegates or PR checks.
+
+## OpenCode children and permission prompts
+
+Measured 2026-11-13 by the Mudcrab lead, and confirmed in T3's own code. T3 builds OpenCode permission rules from the thread's runtime mode. Only `full-access` allows everything. In every other mode (`auto`, `auto-accept-edits`, `approval-required`), T3 sets OpenCode to "ask" for these actions: `bash`, `edit`, `webfetch`, `websearch`, `codesearch`, `external_directory`, and `doom_loop`. `auto-accept-edits` allows edits only. The actions `read`, `glob`, `grep`, `lsp`, `todowrite`, `task`, `skill`, and `question` never prompt, as long as the path is inside the worker's worktree.
+
+- A project `opencode.json` cannot lift the prompts. T3 writes its rules into the session, and they win.
+- A parent cannot approve a child's prompt. `t3_pending_request` answers questions only. A person approves in the T3 UI.
+- A child cannot have a broader mode than its parent, so a lead in `auto` cannot start a `full-access` OpenCode child. Only Taylor can change a thread's mode, in T3.
+- Codex and Claude children do not prompt in `auto`.
+
+What to do:
+
+1. **Read-only research needs no shell.** Give the OpenCode worker a bundle inside its worktree: copy the files it must read, and write command output it needs (for example `git log`) into files first. Tell it to use only read, glob, and grep and to return findings in its final message. Tested on 2026-11-13: a DeepSeek V4.1 Flash child in `auto` mode ran this way with no prompt, and its answers were correct.
+2. **Work that needs a shell** (tests, builds, edits with checks) goes to a Codex or Claude child in `auto`, unless Taylor grants `full-access` to a runner thread. A `full-access` OpenCode worker has the host user's full authority, and the brief is its only guard.

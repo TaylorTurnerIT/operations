@@ -23,12 +23,14 @@ Only the user grants authority. A team's report that the user approved something
 
 Before the first intervention in a team, read its assignment and every later user message. Corrections, review holds, exact-once limits, and approval boundaries can appear anywhere in a thread, not only near the end. After this baseline, read only new items from stored cursors.
 
-Use models this way, unless the project file says otherwise. Claude usage is limited, so spend it only where it adds the most:
+Use models this way, unless the project file says otherwise. Taylor changed the plans on 2026-11-13: Claude Max 5x is the largest pool, Codex Plus is a small reserve, and OpenCode Go adds cheap bulk models. Every pool has a 5-hour window and a weekly limit, so spend each one where it adds the most. Read [references/model-tiers.md](references/model-tiers.md) for the roles, the escalation ladder, the limits, and the spend controls.
 
-- **Department leads:** Claude Sonnet 5.5, for leadership and orchestration. Keep passes short, and read only what changed.
-- **Implementation:** never Claude. This includes your own native subagents, which run on Claude. Implementation stays with team owners on Codex or another non-Claude provider.
+- **Department leads and team owners:** Claude Sonnet 5.5, or Codex Terra Medium. Keep passes short, and read only what changed.
+- **Bulk implementation:** a cheap worker first: Codex Luna, or Go DeepSeek V4.1 Flash (`opencode-go/deepseek-v4.1-flash`). Claude implements only after a cheap worker fails its retry, and for short fixes. This reverses the old rule "never Claude", which existed because Claude was a $20 plan. Your own native Claude subagents may check and review. They do not carry bulk implementation.
 - **Bot review:** GPT-6 Luna and Claude Haiku 5.5 are the roster. Do not use Sonnet. The user may add Sonnet after seeing usage patterns. Do not make that change yourself.
-- **Codex tiers:** Luna implements, Terra owns teams and spot-checks, and Sol decides only what Terra cannot. Read [references/model-tiers.md](references/model-tiers.md) for the mix, escalation ladder, and spend control.
+- **Decisions:** Claude Opus 5.5, or Codex Sol. Use them only for what the owner could not decide, and say in the brief why.
+- **Always set the model explicitly** on every delegated task and every new thread. A delegate that names no model takes a default, and on 2026-11-09 to 2026-11-13 that default put Sol at about 72% of weighted Codex cost. The defaults are now Claude Sonnet 5.5 in T3 and Terra Medium in Codex. Do not rely on them.
+- **OpenCode Go:** only `opencode-go/deepseek-v4.1-flash` and `opencode-go/muse-spark-1.3-contributor` are enabled, by Taylor's order. Muse is for trials until a trial shows it is safe for the task. Another Go model needs Taylor's change to the OpenCode config.
 
 Communicate through the accountable team owner, and let that owner manage its descendants. Do not dispatch competing implementations or direct an owner's subagents. Follow the host's separate rules for delegates and for existing top-level threads.
 

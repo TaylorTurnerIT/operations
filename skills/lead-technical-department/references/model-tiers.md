@@ -1,8 +1,36 @@
-# Model tiers: Luna → Terra → Sol
+# Model tiers
 
-Recorded 2026-11-02 at the user's direction. All three tiers run on the T3 `codex` provider instance. Claude stays limited to department leads, as the main skill states.
+Recorded 2026-11-02 at the user's direction (Luna → Terra → Sol on Codex). Revised 2026-11-13 after Taylor changed the plans. The first section below applies now. Where a later section conflicts with it, the first section wins.
 
-## Why tiers
+## Plans and pools (from 2026-11-13)
+
+Taylor changed the plans: ChatGPT $100 → $20 (Plus), Claude $20 → $100 (Max 5x), and added OpenCode Go ($10). Taylor said the leftover Codex credits are "free reign but don't be wasteful", and said Go is for DeepSeek Flash and Muse only.
+
+| Pool | Plan | Limits | Role |
+| --- | --- | --- | --- |
+| Claude Max 5x | $100 | 5-hour window and weekly limit (Anthropic does not publish the numbers) | Leads and owners (Sonnet 5.5), decisions (Opus 5.5), independent review (Haiku 5.5), short fixes |
+| OpenCode Go | $10 | $12 per 5 hours, $30 per week, $60 per month, in dollars (vendor docs, unverified for this account) | Bulk implementation and long investigations: `opencode-go/deepseek-v4.1-flash`. `opencode-go/muse-spark-1.3-contributor` for trials. |
+| Codex Plus | $20 | 5-hour window and weekly limit. The weekly window is 100% used until 2026-11-16T01:07Z. About 2,260 leftover credits carry Codex until then. | Reserve: Luna for bulk, Terra for owners, Sol for what Terra cannot decide |
+
+Roles, from cheapest to dearest:
+
+1. **Cheap worker** (Tier 3): Codex Luna Medium, or Go DeepSeek V4.1 Flash. Both are unproven against each other on our code. Until a trial shows that Flash passes the same checks as Luna, use Flash for bounded, low-risk tasks, and keep Luna for the rest.
+2. **Owner and spot check** (Tier 2): Claude Sonnet 5.5, or Codex Terra Medium.
+3. **Decider** (Tier 1): Claude Opus 5.5, or Codex Sol High. Use it only for what the owner could not decide. Say in the brief why.
+
+Rules for the new plans:
+
+- **Set the model on every delegate and every new thread.** A default is not a plan. Defaults now: T3 uses Claude Sonnet 5.5, and Codex uses Terra Medium. Both were Sol High until 2026-11-13. From 2026-11-09 to 2026-11-13, Sol was about 72% of weighted Codex cost (estimate, T3 usage cache v12).
+- **Windows end work.** At a 5-hour or weekly limit, an agent stops mid-work. Treat it as a recoverable interruption. Resume after the reset time. Do not switch pools to get around a limit without telling the lead.
+- **Cap parallel Claude agents.** Start with four working at once account-wide. This is a starting value, not a measurement. One burst can use a 5-hour window in about an hour. Adjust with the Claude sampler data.
+- **Stagger scheduled wake-ups.** Each wake-up on Claude can open a window.
+- **Go limits.** Only the two Go models above are enabled. Another model needs Taylor's change to `~/.config/opencode/opencode.json`.
+- **Codex spend.** Credits are free but finite. Keep Sol at or below 10% of weighted Codex cost.
+- **Measure.** `local.codex-usage-sampler` records both Codex windows and the credits. `local.claude-usage-sampler` records the Claude windows. Both run every 15 minutes with no model. Set new targets after one full week of data, and write them here.
+
+The old 70/20/10 target mix and the "about 11 points per day" figure below assumed the old plan. They are retired as targets. Keep the Sol limit above.
+
+## Why tiers (Codex, 2026-11-02)
 
 Weekly Codex allowance is the binding limit. Measured on 2026-11-02, Sol High at the current mix would use about 248% of the weekly allowance by the reset. Relative credit cost for the same tokens:
 
@@ -24,11 +52,11 @@ Share of total model tokens: about 70% Luna, 20% Terra, 10% Sol. This mix costs 
 
 ## Escalation ladder
 
-1. Luna attempts the task.
-2. If the result fails, Luna gets one retry with the exact failure output and a clearer brief.
-3. If the retry fails, Terra takes over. Do not give Luna a third attempt.
-4. If Terra fails once on a hard problem, or the task changes an architecture, Sol takes it.
-5. After Sol answers, drop back down. Luna implements the answer.
+1. A cheap worker (Luna, or Go DeepSeek Flash for a bounded, low-risk task) attempts the task.
+2. If the result fails, the worker gets one retry with the exact failure output and a clearer brief.
+3. If the retry fails, the owner takes over (Sonnet 5.5 or Terra). Do not give the cheap worker a third attempt.
+4. If the owner fails once on a hard problem, or the task changes an architecture, the decider takes it (Opus 5.5, or Sol).
+5. After the decider answers, drop back down. A cheap worker implements the answer.
 
 Escalate on evidence: a failing test, a repeated wrong diff, or a design question. Do not escalate on a feeling that the task is hard.
 
@@ -46,8 +74,8 @@ Keep the existing roster: Luna and Claude Haiku 5.5. Terra reviews only when a r
 
 ## Spend control
 
-- Check the measured weekly burn once per day with `project_usage.py`. The sustainable rate is about 11 percentage points of weekly allowance per day.
-- If daily burn exceeds that rate, shift work down one tier before you reduce parallelism.
+- Check the measured burn once per day on each pool (Codex, Claude, Go). The Codex figure of about 11 points per day belongs to the old plan and no longer applies. Recompute it from the sampler after the 2026-11-16 reset.
+- If a pool burns faster than its window allows, shift work down one tier or to another pool before you reduce parallelism.
 - If the Sol share exceeds 10% for two days, the next review must find which tasks escalated and why.
 - Start with four Luna workers account-wide. Add more only after burn stays under about 10 points per day.
 
@@ -69,6 +97,8 @@ The Mudcrab and Dodge leads reviewed the draft. Neither has Luna implementation 
 7. **Do not switch a running owner thread mid-task.** A fresh Terra relearns the evidence, which has a cost. New owner threads and new tasks start on Terra. Existing owners move at a natural milestone.
 
 ## DeepSeek
+
+Superseded on 2026-11-13: Taylor added OpenCode Go and enabled DeepSeek V4.1 Flash, because the Codex allowance fell and a cheap worker now matters more. See the first section. The reasoning below is the 2026-11-02 view.
 
 Do not add DeepSeek now. At the target mix, Luna is only about 22% of credits. A free implementation model would save at most that 22%, and it adds $10 of cost plus quality risk. The credits are in Terra and Sol, so tier discipline saves more. Revisit only if the measured Luna share of credits exceeds about 40%.
 

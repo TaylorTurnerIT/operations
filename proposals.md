@@ -8,13 +8,14 @@ Anyone can add a proposal. Newest goes first. Each one needs an incident, the sm
 - **Causes (from files and run records):**
   1. T3's `settings.json` has `defaultModelSelection` = Codex `gpt-6.1-sol`, reasoning `high`. The backup from 2026-11-08 has the same value.
   2. `~/.codex/config.toml` has `model = "gpt-6.1-sol"`. Its reasoning effort was `medium` on 2026-11-05 and is `high` now (file changed 2026-11-12 12:25 local; who changed it is unknown). The Nov 5 note in `model-tiers.md` says the default is "Terra Medium". The files do not match that note, and I found no evidence that the default was ever Terra.
-  3. A thread started from the web takes the default. The Hamiltonian lead did: 112 runs on Sol from 2026-11-09 to 2026-11-11, plus 22 runs in its experiment and review threads.
-  4. A delegated child takes its parent's model unless the parent sets one. The Mudcrab lead runs on Sol (29 runs since 2026-11-09), and its delegated investigations ran on Sol, the latest at 2026-11-13T05:21Z.
+  3. A thread started from the web takes the default. The Hamiltonian lead did: 112 runs on Sol from 2026-11-09 to 2026-11-11, plus 22 runs in its experiment and review threads. By 2026-11-12 the lead itself ran on Claude Sonnet 5.5, so its own Sol use had already stopped.
+  4. A delegated task aimed at Codex with no model set most likely uses Codex's default (Sol). This is likely, not proven. The Mudcrab lead had 29 Sol runs from 2026-11-09 to 2026-11-12T18:06Z, then moved to Claude Sonnet 5.5. Its delegated investigations ran on Sol after that, the latest at 2026-11-13T05:21Z. The Tonga-NixLab "Coolify" thread also ran on Sol.
   5. The tier plan exists only as prose in a skill. Nothing enforces it.
-- **Change (proposed; Taylor owns defaults):** (a) change T3's `defaultModelSelection` and the Codex `config.toml` default away from Sol. The Claude default would fit the new plans better (see below). (b) Move the two leads off Sol at their next milestone. (c) The skill says: a delegate sets its model explicitly. (d) A non-LLM daily check counts Sol requests per thread from the v12 cache and tells Taylor when Sol passes 10%.
+- **Change (proposed; Taylor owns defaults):** (a) change T3's `defaultModelSelection` and the Codex `config.toml` default away from Sol. (b) Move the leads off Sol. (c) The skill says: a delegate sets its model explicitly. (d) A non-LLM daily check counts Sol requests per thread from the v12 cache and tells Taylor when Sol passes 10%.
+- **Done 2026-11-13, on Taylor's "Agreed. Make it happen.":** (a) T3's default is now Claude Sonnet 5.5, and the Codex default is Terra Medium. Backups are in the operations lead's scratchpad. (b) Already true: the Hamiltonian and Mudcrab leads run on Sonnet 5.5. (e) Memos about the plan changes and the "set the model explicitly" rule went to the five leads. Still open: (c) needs a skill change, and (d) needs the monitor ported to the v12 cache.
 - **Also found:** `analyze_usage.py` and `tier_monitor.py` read `usage-scan-cache-v10.json`. T3 now keeps `v12`. That is why the daily check looked stale. It was not missing data. The monitor needs a port to v12.
 - **Check:** Sol is at or below 10% of weighted cost for three days. Every new thread and delegate shows its model in the run record.
-- **Status:** open. Waiting for Taylor on (a) and (b).
+- **Status:** (a), (b) and (e) done. (c) and (d) open. Check Sol share from 2026-11-14 on.
 
 ## Rebalance usage for the new plans (2026-11-13)
 

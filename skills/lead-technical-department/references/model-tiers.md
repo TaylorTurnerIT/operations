@@ -71,3 +71,15 @@ The Mudcrab and Dodge leads reviewed the draft. Neither has Luna implementation 
 ## DeepSeek
 
 Do not add DeepSeek now. At the target mix, Luna is only about 22% of credits. A free implementation model would save at most that 22%, and it adds $10 of cost plus quality risk. The credits are in Terra and Sol, so tier discipline saves more. Revisit only if the measured Luna share of credits exceeds about 40%.
+
+## Cost controls (2026-11-05)
+
+Taylor approved these after a root-cause review of 3273 credits from 2026-11-03 06:48Z to 2026-11-05 17:14Z. Terra was 70% of credits. Its context averaged 199k, and 80% of its credits were cached re-reads. Waiting requests were 28% of Terra credits. Eight "implementation" threads ran on Terra for 1149 credits. Delegate-completion wake-ups cost 811 credits, more than all Luna work (631). Shell errors cost at most 1.1% (zsh) to 8.8% (all errors). Treat these as estimates from `waste_scan.py` in the analysis scratch directory.
+
+1. **Scripts wait. Models do not.** Run a long job detached, with a script that writes its own heartbeat and status file. Do not poll with `write_stdin` or `wait` calls, and do not touch a heartbeat file from a model command. In the worst thread, 409 model-driven commands only touched a heartbeat file. If you must poll, check once every 15 minutes or less often. End the turn and let the wake-up event return you.
+2. **Implementation starts on Luna.** This includes long investigations, benchmark campaigns, and script-driven work. Terra implements only after the Luna retry fails (see the escalation ladder). A Terra thread that edits code on its own is an exception that the lead must justify.
+3. **Fewer, larger Luna briefs, and cheap wake-ups.** Merge small tasks into one brief per coherent change. When a completion notice arrives and sibling workers still run, end the turn at once with one line. Do not read files or run status commands. Process the whole batch in one turn.
+4. **Owner context stays below 150k.** The Codex default now compacts at 150k tokens (`model_auto_compact_token_limit`). Keep durable state in files. End or rotate an owner thread at a milestone. Do not re-read bookkeeping files after each compaction.
+5. **Do not re-read static instructions.** The global `AGENTS.md` now holds the STE rules, and the default model is Terra Medium. Do not read the `asd-ste100` SKILL.md file for ordinary work. Read `MEMORY.md` only when the task needs it. Limit large outputs with `head`, `tail`, or `rg`. Verify a worktree path, such as `python/.venv/bin/python`, once and put the working path in the brief.
+
+Targets for the daily monitor: Terra average context below 150k, Terra wait share below 10%, Terra implementation credits near zero, and Sol share of credits below 10%. New threads use the new defaults. Running threads keep their old settings until they restart.

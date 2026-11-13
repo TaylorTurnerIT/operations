@@ -75,5 +75,17 @@ Measured 2026-11-13 by the Mudcrab lead, and confirmed in T3's own code. T3 buil
 
 What to do:
 
+0. **Decision (Taylor, 2026-11-13): OpenCode workers run in `full-access`.** Taylor said: "Fuck it, we're doing full access." Tested the same day: a DeepSeek V4.1 Flash child in `full-access` ran a shell command and listed a path outside its directory, with no prompt. A lead whose thread is in `auto` cannot start such a child, and a lead cannot change its own mode. Two ways to run one:
+   - **Through the `operations` lead.** Its thread is `full-access`. Send it a memo with the brief, and it delegates the worker and returns the result. Use this now.
+   - **From your own thread**, after Taylor sets that thread to Full access in the T3 UI. Only Taylor can do this.
+
+   A `full-access` OpenCode worker has the host user's authority. OpenCode has no sandbox, and the brief is the only guard, so every brief for such a worker states these limits:
+   - Work only in the assigned worktree (start it with `isolation: "worktree"`). Treat every other path as read-only.
+   - Never read, print, or copy a secret: `~/.ssh`, `~/.config` (including `opencode` and `cli-proxy-api`), `~/.t3/userdata/secrets`, any `.env` file, the keychain, or the `security` command.
+   - Never change `~/.t3`, `~/.codex`, `~/.claude`, `~/.config`, or any launchd job. Never run `sudo`, `launchctl`, or `rm -rf` outside the worktree.
+   - No `git push`, no `gh` command that writes, and no network command (`curl`, `wget`, `ssh`) unless the brief names the host.
+   - Return findings or a commit in the worktree. The owner checks the diff before anything merges.
+
+   Bulk work still goes to a cheap worker first (see model-tiers.md). Full access removes the prompts. It does not make DeepSeek's code correct.
 1. **Read-only research needs no shell.** Give the OpenCode worker a bundle inside its worktree: copy the files it must read, and write command output it needs (for example `git log`) into files first. Tell it to use only read, glob, and grep and to return findings in its final message. Tested on 2026-11-13: a DeepSeek V4.1 Flash child in `auto` mode ran this way with no prompt, and its answers were correct.
 2. **Work that needs a shell** (tests, builds, edits with checks) goes to a Codex or Claude child in `auto`, unless Taylor grants `full-access` to a runner thread. A `full-access` OpenCode worker has the host user's full authority, and the brief is its only guard.

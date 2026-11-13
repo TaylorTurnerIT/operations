@@ -73,7 +73,7 @@ Taylor is a core developer. On 2026-11-01, Taylor granted this override for agen
 
 ## Review panel
 
-On 2026-11-02, Taylor said: "Luna + Haiku is our review roster." The roster is GPT-6 Luna (`codex/gpt-6-luna`) and Claude Haiku 5.5 (`claudeAgent/claude-haiku-5-5`). Sonnet is not used for review unless Taylor changes this after seeing usage patterns. The older six-model roster is retired.
+On 2026-11-02, Taylor said: "Luna + Haiku is our review roster." The roster is GPT-6 Luna (`codex/gpt-6-luna`) and Claude Haiku 5.5 (`claudeAgent/claude-haiku-5-5`). Sonnet is not used for review unless Taylor changes this after seeing usage patterns. The older six-model roster is retired. On 2026-11-13 Taylor added: "we should save sol for review. It's great for that and shouldn't eat much usage." Codex Sol (`codex/gpt-6.1-sol`) is now the senior reviewer, for the review gate on a frozen source, risky diffs, and disputed findings. Luna and Haiku stay the routine panel. The `operations` lead read this as an addition, not a replacement. Taylor can correct that reading.
 
 - Use both reviewers on each review. When Haiku is unavailable or Claude usage is low, Luna alone counts.
 - A missing Haiku review is not a gate, a blocker, or an open acceptance item.

@@ -27,8 +27,8 @@ Use models this way, unless the project file says otherwise. Taylor changed the 
 
 - **Department leads and team owners:** Claude Sonnet 5.5, or Codex Terra Medium. Keep passes short, and read only what changed.
 - **Bulk implementation:** a cheap worker first: Codex Luna, or Go DeepSeek V4.1 Flash (`opencode-go/deepseek-v4.1-flash`). Claude implements only after a cheap worker fails its retry, and for short fixes. This reverses the old rule "never Claude", which existed because Claude was a $20 plan. Your own native Claude subagents may check and review. They do not carry bulk implementation.
-- **Bot review:** GPT-6 Luna and Claude Haiku 5.5 are the roster. Do not use Sonnet. The user may add Sonnet after seeing usage patterns. Do not make that change yourself.
-- **Decisions:** Claude Opus 5.5, or Codex Sol. Use them only for what the owner could not decide, and say in the brief why.
+- **Bot review:** GPT-6 Luna and Claude Haiku 5.5 do the routine passes. Codex Sol is the senior reviewer. Taylor said on 2026-11-13: "we should save sol for review. It's great for that and shouldn't eat much usage." Use Sol for the review gate on a frozen source, for risky diffs, and for disputed findings. Give it the diff, the brief, and the test result, not the thread history. Do not use Sonnet. The user may add Sonnet after seeing usage patterns. Do not make that change yourself.
+- **Decisions:** Claude Opus 5.5, for what the owner could not decide. Say in the brief why. Sol does not decide and does not implement. Sol is for review.
 - **Always set the model explicitly** on every delegated task and every new thread. A delegate that names no model takes a default, and on 2026-11-09 to 2026-11-13 that default put Sol at about 72% of weighted Codex cost. The defaults are now Claude Sonnet 5.5 in T3 and Terra Medium in Codex. Do not rely on them.
 - **OpenCode Go:** only `opencode-go/deepseek-v4.1-flash` and `opencode-go/muse-spark-1.3-contributor` are enabled, by Taylor's order. Muse is for trials until a trial shows it is safe for the task. Another Go model needs Taylor's change to the OpenCode config.
 

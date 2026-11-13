@@ -29,7 +29,7 @@ Goal: train a teacher from structured game data, then train a vision student to 
 
 ## Models and review
 
-- Lead: Sonnet 5.5. Owner: Terra Medium. Implementation: Luna Medium in a fresh context, with a short brief that fits 272k. Sol only for architecture, or a problem Terra failed once. See `model-tiers.md`.
+- Lead: Sonnet 5.5. Owner: Terra Medium. Implementation: Luna Medium in a fresh context, with a short brief that fits 272k. Sol is for review only (Taylor, 2026-11-13); Opus 5.5 takes architecture, or a problem Terra failed once. See `model-tiers.md`.
 - Review: Luna plus Haiku 5.5. Luna alone counts if Haiku is unavailable. Do not review unchanged source again.
 - Rotate the owner thread at a milestone. At about 17.9k items it pays for its history on every request. Never rotate it while a run is live.
 - No CI polling loops. Put receipts, lease and `lsof` checks and review dispatch in scripts.

@@ -2,6 +2,20 @@
 
 Anyone can add a proposal. Newest goes first. Each one needs an incident, the smallest change, and a way to know that it worked.
 
+## Stop Sol from being the default (2026-11-13)
+
+- **Incident:** Sol was 3–4% of weighted Codex cost on 2026-11-05 and 2026-11-06, and absent on 2026-11-07 and 2026-11-08. It returned on 2026-11-09 at 58%, and was 79–100% on 2026-11-10 to 2026-11-12. From 2026-11-09 to 2026-11-13, Sol had about 4.1 million fresh input plus output tokens, against 2.4 million for Terra and 4.9 million for Luna. Weighted by tier cost (Sol 1, Terra 0.5, Luna 0.08), that is about 72% Sol, 21% Terra and 7% Luna. This is an estimate that ignores cached re-reads. The target was 10% Sol. Source: `~/.t3/userdata/usage-scan-cache-v12.json`.
+- **Causes (from files and run records):**
+  1. T3's `settings.json` has `defaultModelSelection` = Codex `gpt-6.1-sol`, reasoning `high`. The backup from 2026-11-08 has the same value.
+  2. `~/.codex/config.toml` has `model = "gpt-6.1-sol"`. Its reasoning effort was `medium` on 2026-11-05 and is `high` now (file changed 2026-11-12 12:25 local; who changed it is unknown). The Nov 5 note in `model-tiers.md` says the default is "Terra Medium". The files do not match that note, and I found no evidence that the default was ever Terra.
+  3. A thread started from the web takes the default. The Hamiltonian lead did: 112 runs on Sol from 2026-11-09 to 2026-11-11, plus 22 runs in its experiment and review threads.
+  4. A delegated child takes its parent's model unless the parent sets one. The Mudcrab lead runs on Sol (29 runs since 2026-11-09), and its delegated investigations ran on Sol, the latest at 2026-11-13T05:21Z.
+  5. The tier plan exists only as prose in a skill. Nothing enforces it.
+- **Change (proposed; Taylor owns defaults):** (a) change T3's `defaultModelSelection` and the Codex `config.toml` default away from Sol. The Claude default would fit the new plans better (see below). (b) Move the two leads off Sol at their next milestone. (c) The skill says: a delegate sets its model explicitly. (d) A non-LLM daily check counts Sol requests per thread from the v12 cache and tells Taylor when Sol passes 10%.
+- **Also found:** `analyze_usage.py` and `tier_monitor.py` read `usage-scan-cache-v10.json`. T3 now keeps `v12`. That is why the daily check looked stale. It was not missing data. The monitor needs a port to v12.
+- **Check:** Sol is at or below 10% of weighted cost for three days. Every new thread and delegate shows its model in the run record.
+- **Status:** open. Waiting for Taylor on (a) and (b).
+
 ## Rebalance usage for the new plans (2026-11-13)
 
 - **Incident:** Taylor changed the plans: ChatGPT $100 → $20 (Plus), Claude $20 → $100 (Max 5x), and added OpenCode Go $10. The usage sampler shows the Codex effect. At 2026-11-13T01:31Z the plan changed from `prolite` to `plus`, and the weekly window went to 100% used. It resets 2026-11-16T01:07Z. Until then Codex runs only on credits: 2,274.99 left at 2026-11-13T04:59Z. A new 5-hour Codex window now exists, and it is at 0%.

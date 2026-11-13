@@ -15,7 +15,7 @@ Anyone can add a proposal. Newest goes first. Each one needs an incident, the sm
 - **Done 2026-11-13, on Taylor's "Agreed. Make it happen.":** (a) T3's default is now Claude Sonnet 5.5, and the Codex default is Terra Medium. Backups are in the operations lead's scratchpad. (b) Already true: the Hamiltonian and Mudcrab leads run on Sonnet 5.5. (e) Memos about the plan changes and the "set the model explicitly" rule went to the five leads. Still open: (c) needs a skill change, and (d) needs the monitor ported to the v12 cache.
 - **Also found:** `analyze_usage.py` and `tier_monitor.py` read `usage-scan-cache-v10.json`. T3 now keeps `v12`. That is why the daily check looked stale. It was not missing data. The monitor needs a port to v12.
 - **Check:** Sol is at or below 10% of weighted cost for three days. Every new thread and delegate shows its model in the run record.
-- **Status:** (a), (b) and (e) done. (c) and (d) open. Check Sol share from 2026-11-14 on.
+- **Status:** (a), (b), (c) and (e) done. (c) merged 2026-11-13 as `6add5f8`: the skill now says to set the model explicitly. (d) open. Check Sol share from 2026-11-14 on.
 
 ## Rebalance usage for the new plans (2026-11-13)
 
@@ -40,7 +40,7 @@ Anyone can add a proposal. Newest goes first. Each one needs an incident, the sm
 - **Check:** Codex credits are above zero at 2026-11-16T01:07Z. The sampler's weekly window gives Plus a measured credits-per-week. The count of 5-hour limit hits on Claude is zero or low for a week. Throughput does not fall: tasks that Luna or DeepSeek fail do not queue up.
 - **Unknowns:** whether the credits cost money (Taylor knows), the real Plus weekly size, the Claude weekly limit, whether DeepSeek on Go matches Luna on our code (needs a trial on a bounded task), and whether Go and Muse can be connected to T3.
 - **Done already:** the usage sampler (`~/.local/share/codex-usage-sampler/sample_usage.py`) now also records the weekly window. It is not in this repo.
-- **Status:** open. Waiting for Taylor on items 1 to 6.
+- **Status, 2026-11-13:** Taylor approved the proposal. Done: item 2 and 3 (new split and ladder merged into the skill as `6add5f8`), item 5 (Claude sampler running, Taylor approved the credential read), item 6 (daily check paused), Go models enabled for DeepSeek Flash and Muse only, and the leads informed by memo. Item 1 softened: Taylor says the credits are free but not to be wasted. First Go trial passed (`hpc-remote` lead, tests-only task). Open: item 4 (the Claude agent cap is a starting value of four, unmeasured), a monitor port to the v12 cache, and a measured Plus weekly size after 2026-11-16T01:07Z.
 
 ## Mailbox: batch department mail outside the agents
 

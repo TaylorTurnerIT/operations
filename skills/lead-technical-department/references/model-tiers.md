@@ -28,6 +28,10 @@ Rules for the new plans:
 - **Codex spend.** Credits are free but finite. Keep Sol at or below 10% of weighted Codex cost.
 - **Measure.** `local.codex-usage-sampler` records both Codex windows and the credits. `local.claude-usage-sampler` records the Claude windows. Both run every 15 minutes with no model. Set new targets after one full week of data, and write them here.
 
+Trial log (add a line for each trial):
+
+- 2026-11-13, `hpc-remote` lead: Go DeepSeek V4.1 Flash wrote one new tests-only file (10 tests, 99 lines, fake values, no network) in its own worktree, commit `58690be`. The lead reran the checks itself: 64 tests, `ruff check`, and `ruff format --check` passed, and the diff was one file. It read the file and found no tautological test. This is a pass on bounded test writing. It is not a head-to-head with Luna, it had no second-model review, and Go cost was not measured. Muse was not tried. The lead uses Flash for similar bounded tests-only or docs-only work, and keeps Luna for state-machine and security code.
+
 The old 70/20/10 target mix and the "about 11 points per day" figure below assumed the old plan. They are retired as targets. Keep the Sol limit above.
 
 ## Why tiers (Codex, 2026-11-02)
